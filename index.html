@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tu código tiene memoria | Introducción a Git</title>
+  <meta name="description" content="Experiencia educativa digital: introducción al control de versiones con Git para estudiantes universitarios que inician en el desarrollo de software.">
+  <meta name="author" content="Luis Ángel Ortega Holguín">
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- Barra de progreso superior (móvil y escritorio) -->
+  <div class="progreso-barra" aria-hidden="true"><span id="progreso-relleno"></span></div>
+  <div class="progreso-movil">
+    <span id="estacion-actual">Bienvenida</span>
+    <span id="progreso-texto-movil">0 de 12 actividades</span>
+  </div>
+
+  <div class="marco">
+    <!-- Línea de metro: navegación por secciones -->
+    <nav class="linea" aria-label="Secciones de la experiencia">
+      <p class="linea-titulo">Tu recorrido</p>
+      <p class="linea-avance" id="progreso-texto">0 de 12 actividades</p>
+      <ol>
+        <li class="estacion terminal" data-seccion="bienvenida"><a href="#bienvenida"><span class="marca" aria-hidden="true"></span>Bienvenida</a></li>
+        <li class="estacion" data-seccion="por-que"><a href="#por-que"><span class="marca" aria-hidden="true">1</span>¿Por qué control de versiones?</a></li>
+        <li class="estacion" data-seccion="modelo"><a href="#modelo"><span class="marca" aria-hidden="true">2</span>El modelo mental</a></li>
+        <li class="estacion" data-seccion="ciclo"><a href="#ciclo"><span class="marca" aria-hidden="true">3</span>El ciclo básico</a></li>
+        <li class="estacion" data-seccion="ramas"><a href="#ramas"><span class="marca" aria-hidden="true">4</span>Ramas</a></li>
+        <li class="estacion" data-seccion="remoto"><a href="#remoto"><span class="marca" aria-hidden="true">5</span>Trabajo remoto</a></li>
+        <li class="estacion" data-seccion="reto"><a href="#reto"><span class="marca" aria-hidden="true">6</span>Reto final</a></li>
+        <li class="estacion" data-seccion="cierre"><a href="#cierre"><span class="marca" aria-hidden="true">7</span>Cierre</a></li>
+        <li class="estacion terminal" data-seccion="referencias"><a href="#referencias"><span class="marca" aria-hidden="true"></span>Referencias</a></li>
+      </ol>
+    </nav>
+
+    <main id="contenido">
+
+      <!-- ============ SECCIÓN 0. BIENVENIDA ============ -->
+      <section id="bienvenida" class="seccion portada" data-actividades="">
+        <div class="portada-texto">
+          <h1>Tu código tiene memoria</h1>
+          <p class="subtitulo">Introducción al control de versiones con Git</p>
+          <p>¿Alguna vez arruinaste un proyecto que ya funcionaba y no supiste cómo regresar a la versión anterior? ¿O trabajaste en equipo y alguien sobrescribió tu parte? Para eso existe el control de versiones. En esta experiencia vas a aprender a usar Git, la herramienta que usan equipos de desarrollo en todo el mundo para darle memoria a su código.</p>
+        </div>
+
+        <figure class="portada-ilustracion" aria-label="Ilustración: una terminal donde se ejecuta git commit y, debajo, una línea de confirmaciones con una rama que se separa y se vuelve a unir">
+          <svg viewBox="0 0 420 300" role="img" aria-hidden="true">
+            <rect x="10" y="10" width="400" height="190" rx="14" class="t-ventana"/>
+            <rect x="10" y="10" width="400" height="34" rx="14" class="t-barra"/>
+            <rect x="10" y="30" width="400" height="14" class="t-barra"/>
+            <circle cx="34" cy="27" r="6" class="t-boton1"/>
+            <circle cx="54" cy="27" r="6" class="t-boton2"/>
+            <circle cx="74" cy="27" r="6" class="t-boton3"/>
+            <text x="32" y="80" class="t-texto"><tspan class="t-prompt">$</tspan> git add index.html</text>
+            <text x="32" y="112" class="t-texto"><tspan class="t-prompt">$</tspan> git commit -m "Agrega menú"</text>
+            <text x="32" y="144" class="t-texto t-tenue">[main 3f9a1c2] Agrega menú</text>
+            <text x="32" y="176" class="t-texto"><tspan class="t-prompt">$</tspan> <tspan class="t-cursor">▌</tspan></text>
+            <!-- línea de commits estilo metro -->
+            <path d="M30 252 H390" class="m-main anima-linea"/>
+            <path d="M170 252 C 195 252, 200 220, 225 220 H 280 C 305 220, 310 252, 335 252" class="m-rama anima-linea retraso"/>
+            <circle cx="50" cy="252" r="9" class="m-parada p1"/>
+            <circle cx="110" cy="252" r="9" class="m-parada p2"/>
+            <circle cx="170" cy="252" r="9" class="m-parada p3"/>
+            <circle cx="250" cy="220" r="9" class="m-parada rama p4"/>
+            <circle cx="260" cy="252" r="9" class="m-parada p5"/>
+            <circle cx="335" cy="252" r="11" class="m-parada fusion p6"/>
+          </svg>
+        </figure>
+
+        <div class="portada-detalle">
+          <h2 class="h-chica">Al terminar podrás</h2>
+          <p>Ejecutar el ciclo básico de trabajo de Git: crear un repositorio, guardar cambios, revisar el historial y trabajar con ramas. También sabrás explicar en qué parte de Git se encuentra cada cambio que haces.</p>
+
+          <h2 class="h-chica">Antes de empezar</h2>
+          <dl class="datos">
+            <div><dt>Duración</dt><dd>Alrededor de 60 minutos. Puedes hacerla por partes; tu progreso se guarda en este navegador.</dd></div>
+            <div><dt>Qué necesitas</dt><dd>Solo este navegador. No tienes que instalar nada.</dd></div>
+            <div><dt>Cómo funciona</dt><dd>Son siete secciones. En cada una hay explicaciones, diagramas y actividades marcadas con el ícono <span class="rayo" aria-label="de actividad">⚡</span>. La línea de tu recorrido te muestra cuánto llevas.</dd></div>
+          </dl>
+          <a class="boton principal" href="#por-que">Comenzar</a>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 1. ¿POR QUÉ? ============ -->
+      <section id="por-que" class="seccion" data-actividades="encuesta vr1">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">1</span>¿Por qué control de versiones?</h2>
+
+        <div class="actividad" data-actividad="encuesta">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Encuesta inicial</p>
+          <p class="pregunta-texto" id="encuesta-pregunta">¿Cómo guardas hoy las versiones de tus proyectos?</p>
+          <div class="opciones" role="group" aria-labelledby="encuesta-pregunta">
+            <button class="opcion" data-op="a" data-msg="Es la forma más común de empezar, y también la más frágil. Al final de esta experiencia tendrás algo mucho mejor.">Copio la carpeta con nombres como "final", "final2", "ahora_sí"</button>
+            <button class="opcion" data-op="b" data-msg="Eso te protege si pierdes tu computadora, pero no te dice qué cambió ni cuándo. Git sí.">Lo subo a Drive, OneDrive o una USB</button>
+            <button class="opcion" data-op="c" data-msg="Funciona para salir del paso, pero buscar la versión correcta entre decenas de mensajes es otro problema.">Me lo mando por correo o mensaje</button>
+            <button class="opcion" data-op="d" data-msg="¡Excelente! Esta experiencia te servirá para reforzar el modelo detrás de los comandos que ya usas.">Ya uso Git u otra herramienta</button>
+          </div>
+          <p class="retro" aria-live="polite" hidden></p>
+        </div>
+
+        <div class="dos-columnas">
+          <div>
+            <h3>El problema</h3>
+            <p>Imagina una carpeta con estos archivos: <code>proyecto.zip</code>, <code>proyecto_final.zip</code>, <code>proyecto_final_v2.zip</code>, <code>proyecto_final_v3_ahora_si.zip</code>. ¿Cuál es la buena? ¿Qué cambió entre una y otra? ¿Quién hizo cada cambio? Las copias manuales no responden ninguna de esas preguntas.</p>
+          </div>
+          <figure class="ilustracion" aria-label="Ilustración: una carpeta desbordada de archivos comprimidos con nombres como proyecto_final_v2.zip y proyecto_final_v3_ahora_si.zip">
+            <svg viewBox="0 0 360 250" aria-hidden="true">
+              <path d="M24 64 h86 l18 -22 h198 a10 10 0 0 1 10 10 v176 a10 10 0 0 1 -10 10 h-302 a10 10 0 0 1 -10 -10 v-154 a10 10 0 0 1 10 -10z" class="c-carpeta"/>
+              <g transform="rotate(-7 110 100)"><rect x="44" y="84" width="132" height="32" rx="6" class="c-archivo"/><text x="56" y="105" class="c-texto">proyecto.zip</text></g>
+              <g transform="rotate(4 200 135)"><rect x="112" y="118" width="178" height="32" rx="6" class="c-archivo"/><text x="124" y="139" class="c-texto">proyecto_final.zip</text></g>
+              <g transform="rotate(-3 150 170)"><rect x="44" y="154" width="204" height="32" rx="6" class="c-archivo"/><text x="56" y="175" class="c-texto">proyecto_final_v2.zip</text></g>
+              <g transform="rotate(2 180 205)"><rect x="44" y="190" width="272" height="32" rx="6" class="c-archivo alerta"/><text x="56" y="211" class="c-texto">proyecto_final_v3_ahora_si.zip</text></g>
+              <text x="278" y="98" class="c-pregunta">?</text>
+              <text x="310" y="78" class="c-pregunta chica">?</text>
+            </svg>
+          </figure>
+        </div>
+
+        <h3>La solución</h3>
+        <p>Un sistema de control de versiones registra los cambios que haces a uno o varios archivos a lo largo del tiempo, de modo que puedas recuperar cualquier versión anterior cuando la necesites (Chacon y Straub, 2014). Además de regresar en el tiempo, te permite comparar versiones, saber quién modificó qué y trabajar en equipo sin pisar el trabajo de otros.</p>
+
+        <h3>¿Por qué Git?</h3>
+        <p>Git es un sistema de control de versiones <strong>distribuido</strong>: cada persona que trabaja en el proyecto tiene una copia completa de su historial, no solo de la última versión. Si el servidor central falla, cualquier copia puede servir para restaurarlo. Git nació en 2005, creado por la comunidad que desarrolla el núcleo de Linux, y hoy es el estándar de la industria (Chacon y Straub, 2014).</p>
+
+        <figure class="video">
+          <div class="video-marco">
+            <iframe src="https://www.youtube-nocookie.com/embed/DinilgacaWs" title="¿Qué es Git y GitHub? - Repositorios, ramas y mucho más (Platzi, 2019)" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <figcaption>Mira este video para conocer qué es Git y por qué se usa en la industria. Fuente: Platzi (2019). <a href="https://www.youtube.com/watch?v=DinilgacaWs" target="_blank" rel="noopener">Abrir en YouTube</a>.</figcaption>
+        </figure>
+
+        <div class="actividad quiz" data-actividad="vr1">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Verificación rápida</p>
+          <fieldset class="pregunta" data-id="vr1-1" data-correcta="b">
+            <legend>Un sistema de control de versiones sirve principalmente para…</legend>
+            <button class="opcion" data-op="a">Hacer respaldos automáticos en la nube</button>
+            <button class="opcion" data-op="b">Registrar los cambios de los archivos y recuperar versiones anteriores</button>
+            <button class="opcion" data-op="c">Comprimir proyectos para que ocupen menos espacio</button>
+            <p class="explicacion" hidden>El respaldo y la compresión son útiles, pero lo que define al control de versiones es el registro de cambios a lo largo del tiempo.</p>
+          </fieldset>
+          <fieldset class="pregunta" data-id="vr1-2" data-correcta="b">
+            <legend>En Git, si el servidor donde está el proyecto deja de funcionar…</legend>
+            <button class="opcion" data-op="a">Se pierde todo el historial</button>
+            <button class="opcion" data-op="b">Cualquier copia local puede servir para restaurarlo, porque contiene el historial completo</button>
+            <button class="opcion" data-op="c">Solo se conserva la última versión</button>
+            <p class="explicacion" hidden>Esa es la ventaja de un sistema distribuido: cada copia es un respaldo completo.</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 2. EL MODELO MENTAL ============ -->
+      <section id="modelo" class="seccion" data-actividades="hotspots clasificacion vr2">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">2</span>El modelo mental</h2>
+
+        <h3>Git toma fotografías</h3>
+        <p>Otros sistemas guardan una lista de diferencias entre archivos. Git, en cambio, piensa en tu proyecto como una serie de <strong>instantáneas</strong>. Cada vez que confirmas un cambio, Git toma una "fotografía" de cómo se ven todos tus archivos en ese momento. Si un archivo no cambió, no lo vuelve a guardar: solo anota que sigue igual que en la foto anterior (Chacon y Straub, 2014). A cada fotografía la llamamos <strong>confirmación</strong> o <em>commit</em>, y Git le asigna un identificador único (<em>hash</em>) para que nunca se confunda con otra.</p>
+
+        <h3>Los tres estados</h3>
+        <p>Un archivo que Git rastrea puede estar en uno de tres estados (Chacon y Straub, 2014):</p>
+        <ul class="lista-estados">
+          <li><span class="chip modificado">Modificado</span> Cambiaste el archivo, pero todavía no le has dicho a Git que quieres guardarlo.</li>
+          <li><span class="chip preparado">Preparado</span> (<em>staged</em>) Marcaste ese cambio para incluirlo en la próxima fotografía.</li>
+          <li><span class="chip confirmado">Confirmado</span> (<em>committed</em>) El cambio ya quedó guardado de forma segura en el historial.</li>
+        </ul>
+
+        <h3>Las tres áreas</h3>
+        <p>Cada estado corresponde a un lugar dentro de tu proyecto: el <strong>directorio de trabajo</strong>, donde editas tus archivos; el <strong>área de preparación</strong>, donde eliges qué cambios entran en la siguiente fotografía; y el <strong>repositorio</strong>, donde Git guarda todas las fotografías.</p>
+
+        <h3>Una analogía</h3>
+        <p>Piensa en una sesión de fotos. El directorio de trabajo es el set, donde mueves y acomodas todo lo que quieras. El área de preparación es el encuadre: decides quién sale en la foto y quién no. El <em>commit</em> es apretar el botón y pegar la foto en el álbum. Una vez en el álbum, la foto ya no cambia, aunque sigas moviendo cosas en el set.</p>
+
+        <div class="actividad ancho" data-actividad="hotspots">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Diagrama interactivo</p>
+          <p class="instruccion">Toca cada área y cada flecha para descubrir qué hace.</p>
+          <div class="areas-diagrama">
+            <button class="area-boton area-trabajo" data-punto="trabajo" aria-expanded="false">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="6" width="26" height="34" rx="3" class="ic-hoja"/><path d="M14 16h14M14 22h14M14 28h9" class="ic-trazo"/><path d="M30 34l10-10 4 4-10 10h-4z" class="ic-lapiz"/></svg>
+              <span>Directorio de trabajo</span>
+            </button>
+            <button class="flecha-boton" data-punto="add" aria-expanded="false" aria-label="Flecha git add"><code>git add</code><svg viewBox="0 0 60 20" aria-hidden="true"><path d="M2 10h50M44 3l8 7-8 7" class="flecha"/></svg></button>
+            <button class="area-boton area-preparacion" data-punto="preparacion" aria-expanded="false">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 14V6h8M34 6h8v8M42 34v8h-8M14 42H6v-8" class="ic-trazo grueso"/><circle cx="24" cy="24" r="7" class="ic-lente"/></svg>
+              <span>Área de preparación</span>
+            </button>
+            <button class="flecha-boton" data-punto="commit" aria-expanded="false" aria-label="Flecha git commit"><code>git commit</code><svg viewBox="0 0 60 20" aria-hidden="true"><path d="M2 10h50M44 3l8 7-8 7" class="flecha"/></svg></button>
+            <button class="area-boton area-repositorio" data-punto="repositorio" aria-expanded="false">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="30" rx="3" class="ic-hoja"/><rect x="11" y="15" width="12" height="9" class="ic-foto"/><rect x="25" y="15" width="12" height="9" class="ic-foto"/><rect x="11" y="27" width="12" height="9" class="ic-foto"/><rect x="25" y="27" width="12" height="9" class="ic-foto vacia"/></svg>
+              <span>Repositorio</span>
+            </button>
+          </div>
+          <div class="punto-panel" aria-live="polite">
+            <p class="punto-vacio">Elige un elemento del diagrama.</p>
+            <p data-texto="trabajo" hidden><strong>Directorio de trabajo.</strong> Aquí editas tus archivos. Git nota que cambiaron, pero no guarda nada hasta que tú se lo indiques.</p>
+            <p data-texto="add" hidden><strong><code>git add</code>.</strong> Mueve los cambios que elijas al área de preparación. Puedes preparar unos archivos y otros no.</p>
+            <p data-texto="preparacion" hidden><strong>Área de preparación.</strong> Es la lista de cambios que entrarán en tu próxima fotografía.</p>
+            <p data-texto="commit" hidden><strong><code>git commit</code>.</strong> Toma la fotografía: guarda los cambios preparados en el historial, junto con un mensaje que describe lo que hiciste.</p>
+            <p data-texto="repositorio" hidden><strong>Repositorio.</strong> El álbum completo de tu proyecto. Cada <em>commit</em> queda aquí con su autor, fecha y mensaje.</p>
+          </div>
+          <p class="contador-puntos"><span id="puntos-vistos">0</span> de 5 elementos explorados</p>
+        </div>
+
+        <div class="actividad ancho" data-actividad="clasificacion">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Clasificación: ¿dónde está el cambio?</p>
+          <p class="instruccion">Lleva cada situación al área de Git donde se encuentra el cambio. Puedes arrastrar la tarjeta o tocar uno de sus botones.</p>
+          <div class="cajones">
+            <div class="cajon" data-area="trabajo"><p>Directorio de trabajo</p><ul></ul></div>
+            <div class="cajon" data-area="preparacion"><p>Área de preparación</p><ul></ul></div>
+            <div class="cajon" data-area="repositorio"><p>Repositorio</p><ul></ul></div>
+          </div>
+          <ul class="tarjetas">
+            <li class="tarjeta" draggable="true" data-id="c1" data-area="trabajo" data-retro="Guardar en el editor no es guardar en Git. El cambio solo existe en tu directorio de trabajo.">
+              <p>Editaste <code>index.html</code> y guardaste en tu editor, pero no has escrito ningún comando.</p>
+            </li>
+            <li class="tarjeta" draggable="true" data-id="c2" data-area="preparacion" data-retro="git add coloca el cambio en el encuadre de la próxima fotografía.">
+              <p>Ejecutaste <code>git add index.html</code>.</p>
+            </li>
+            <li class="tarjeta" draggable="true" data-id="c3" data-area="repositorio" data-retro="La fotografía ya está en el álbum.">
+              <p>Ejecutaste <code>git commit -m "Agrega menú principal"</code>.</p>
+            </li>
+            <li class="tarjeta" draggable="true" data-id="c4" data-area="trabajo" data-retro="Un archivo nuevo empieza &quot;sin seguimiento&quot;. Git lo ve, pero no lo incluirá en ninguna foto hasta que lo agregues.">
+              <p>Creaste un archivo nuevo, <code>notas.txt</code>, y Git todavía no lo rastrea.</p>
+            </li>
+            <li class="tarjeta" draggable="true" data-id="c5" data-area="repositorio" data-retro="git log muestra el historial, es decir, las fotografías que ya están en el álbum.">
+              <p>Ejecutas <code>git log</code> y ves tu cambio en la lista.</p>
+            </li>
+            <li class="tarjeta" draggable="true" data-id="c6" data-area="trabajo" data-retro="Pregunta con truco: el área de preparación guardó la versión del momento en que hiciste git add. La edición posterior está solo en tu directorio de trabajo; tendrías que volver a ejecutar git add.">
+              <p>Preparaste <code>estilos.css</code> y después lo volviste a editar. ¿Dónde está la <strong>nueva</strong> edición?</p>
+            </li>
+          </ul>
+          <p class="retro" aria-live="polite" hidden></p>
+        </div>
+
+        <div class="actividad quiz" data-actividad="vr2">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Verificación rápida</p>
+          <fieldset class="pregunta" data-id="vr2-1" data-correcta="a">
+            <legend>¿Qué comando mueve un cambio del directorio de trabajo al área de preparación?</legend>
+            <button class="opcion" data-op="a"><code>git add</code></button>
+            <button class="opcion" data-op="b"><code>git commit</code></button>
+            <button class="opcion" data-op="c"><code>git log</code></button>
+            <p class="explicacion" hidden><code>git add</code> prepara los cambios; <code>git commit</code> los confirma y <code>git log</code> muestra el historial.</p>
+          </fieldset>
+          <fieldset class="pregunta" data-id="vr2-2" data-correcta="c">
+            <legend>Un archivo en estado "confirmado" significa que…</legend>
+            <button class="opcion" data-op="a">Lo guardaste en tu editor</button>
+            <button class="opcion" data-op="b">Lo marcaste para la próxima fotografía</button>
+            <button class="opcion" data-op="c">Ya está guardado en el historial del repositorio</button>
+            <p class="explicacion" hidden>Guardar en el editor deja el archivo modificado; marcarlo lo deja preparado. Solo el <em>commit</em> lo confirma en el historial.</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 3. EL CICLO BÁSICO ============ -->
+      <section id="ciclo" class="seccion" data-actividades="ordenar mision1 vr3">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">3</span>El ciclo básico</h2>
+        <p>Ya conoces el modelo: editas en el directorio de trabajo, preparas lo que quieres guardar y tomas la fotografía. Ahora veamos los comandos que hacen que eso ocurra.</p>
+
+        <div class="tabla-envoltura">
+          <table class="comandos">
+            <thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git init</code></td><td>Convierte la carpeta actual en un repositorio. Git crea una carpeta oculta llamada <code>.git</code>, donde guardará todo el historial.</td></tr>
+              <tr><td><code>git status</code></td><td>Te dice en qué estado están tus archivos: cuáles cambiaron, cuáles están preparados y cuáles Git todavía no rastrea. Úsalo siempre que tengas duda.</td></tr>
+              <tr><td><code>git add &lt;archivo&gt;</code></td><td>Mueve los cambios de un archivo al área de preparación. Con <code>git add .</code> preparas todos los cambios de la carpeta.</td></tr>
+              <tr><td><code>git commit -m "mensaje"</code></td><td>Toma la fotografía: guarda en el historial todo lo que está preparado, con un mensaje que describe el cambio.</td></tr>
+              <tr><td><code>git log</code></td><td>Muestra el historial de confirmaciones. Con <code>git log --oneline</code> lo ves en versión compacta, una línea por <em>commit</em>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="recorrido ancho" aria-label="Animación del recorrido de un archivo por las tres áreas de Git">
+          <svg viewBox="0 0 660 170" aria-hidden="true">
+            <rect x="10" y="30" width="190" height="120" rx="12" class="r-area"/>
+            <rect x="235" y="30" width="190" height="120" rx="12" class="r-area"/>
+            <rect x="460" y="30" width="190" height="120" rx="12" class="r-area"/>
+            <text x="105" y="20" class="r-etiqueta">Directorio de trabajo</text>
+            <text x="330" y="20" class="r-etiqueta">Área de preparación</text>
+            <text x="555" y="20" class="r-etiqueta">Repositorio</text>
+            <g id="tarjeta-recorrido" class="r-tarjeta" data-paso="0">
+              <rect x="35" y="65" width="140" height="50" rx="8"/>
+              <text x="105" y="88" class="r-nombre">index.html</text>
+              <text x="105" y="106" class="r-estado" id="recorrido-estado">modificado</text>
+            </g>
+          </svg>
+          <figcaption>
+            <span id="recorrido-texto">El archivo está modificado en tu directorio de trabajo.</span>
+            <span class="recorrido-botones">
+              <button class="boton chico" id="recorrido-add"><code>git add</code></button>
+              <button class="boton chico" id="recorrido-commit" disabled><code>git commit</code></button>
+              <button class="boton chico secundario" id="recorrido-reiniciar">Reiniciar</button>
+            </span>
+          </figcaption>
+        </figure>
+
+        <h3>Un buen mensaje de commit</h3>
+        <p>Tu "yo" del futuro, y tus compañeros de equipo, leerán estos mensajes para entender qué pasó en el proyecto. Escribe mensajes breves que describan el cambio con un verbo, por ejemplo "Agrega formulario de contacto" o "Corrige error en el cálculo del total" (Chacon y Straub, 2014). Mensajes como "cambios" o "ya quedó" no le dicen nada a nadie.</p>
+
+        <aside class="recuadro">
+          <p class="recuadro-titulo">En tu computadora</p>
+          <p>La primera vez que uses Git en tu equipo tendrás que decirle quién eres, porque cada <em>commit</em> guarda el nombre y el correo de su autor:</p>
+          <pre><code>git config --global user.name "Tu Nombre"
+git config --global user.email "tu@correo.com"</code></pre>
+          <p>En el simulador no hace falta (Chacon y Straub, 2014).</p>
+        </aside>
+
+        <div class="actividad" data-actividad="ordenar">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Ordenar los pasos</p>
+          <p class="instruccion">Acomoda los pasos en el orden en que ocurren al iniciar un proyecto con Git. Arrastra cada paso o usa las flechas.</p>
+          <ol class="ordenable">
+            <li data-orden="4" draggable="true"><span class="asa" aria-hidden="true"></span><span class="paso-texto"><code>git add</code></span><span class="mover"><button class="subir" aria-label="Subir git add">↑</button><button class="bajar" aria-label="Bajar git add">↓</button></span></li>
+            <li data-orden="1" draggable="true"><span class="asa" aria-hidden="true"></span><span class="paso-texto"><code>git init</code></span><span class="mover"><button class="subir" aria-label="Subir git init">↑</button><button class="bajar" aria-label="Bajar git init">↓</button></span></li>
+            <li data-orden="6" draggable="true"><span class="asa" aria-hidden="true"></span><span class="paso-texto"><code>git log</code></span><span class="mover"><button class="subir" aria-label="Subir git log">↑</button><button class="bajar" aria-label="Bajar git log">↓</button></span></li>
+            <li data-orden="2" draggable="true"><span class="asa" aria-hidden="true"></span><span class="paso-texto">Crear o editar archivos</span><span class="mover"><button class="subir" aria-label="Subir crear o editar archivos">↑</button><button class="bajar" aria-label="Bajar crear o editar archivos">↓</button></span></li>
+            <li data-orden="5" draggable="true"><span class="asa" aria-hidden="true"></span><span class="paso-texto"><code>git commit -m "..."</code></span><span class="mover"><button class="subir" aria-label="Subir git commit">↑</button><button class="bajar" aria-label="Bajar git commit">↓</button></span></li>
+            <li data-orden="3" draggable="true"><span class="asa" aria-hidden="true"></span><span class="paso-texto"><code>git status</code></span><span class="mover"><button class="subir" aria-label="Subir git status">↑</button><button class="bajar" aria-label="Bajar git status">↓</button></span></li>
+          </ol>
+          <button class="boton" id="revisar-orden">Revisar orden</button>
+          <p class="retro" aria-live="polite" hidden></p>
+        </div>
+
+        <div class="actividad ancho mision" data-actividad="mision1">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Misión 1: Tu primer repositorio</p>
+          <p class="escenario">Vas a empezar el sitio web de tu portafolio. Ya tienes una carpeta <code>mi-portafolio</code> con dos archivos: <code>index.html</code> y <code>estilos.css</code>. Ponla bajo control de versiones.</p>
+          <div class="simulador" data-mision="1"><noscript><p>Para usar el simulador necesitas activar JavaScript en tu navegador.</p></noscript></div>
+        </div>
+
+        <div class="actividad quiz" data-actividad="vr3">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Verificación rápida</p>
+          <fieldset class="pregunta" data-id="vr3-1" data-correcta="b">
+            <legend>¿Qué te muestra <code>git status</code>?</legend>
+            <button class="opcion" data-op="a">La lista de todos los <em>commits</em> del proyecto</button>
+            <button class="opcion" data-op="b">Qué archivos están modificados, preparados o sin seguimiento</button>
+            <button class="opcion" data-op="c">Las ramas que existen en el repositorio</button>
+            <p class="explicacion" hidden>Para ver los <em>commits</em> usas <code>git log</code> y para ver las ramas, <code>git branch</code>. <code>git status</code> describe el estado actual de tus archivos.</p>
+          </fieldset>
+          <fieldset class="pregunta" data-id="vr3-2" data-correcta="b">
+            <legend>¿Cuál es el mejor mensaje de <em>commit</em>?</legend>
+            <button class="opcion" data-op="a">"cambios"</button>
+            <button class="opcion" data-op="b">"Agrega validación al formulario de contacto"</button>
+            <button class="opcion" data-op="c">"ya quedó ahora sí"</button>
+            <p class="explicacion" hidden>Un buen mensaje describe el cambio con un verbo y se entiende sin abrir el código.</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 4. RAMAS ============ -->
+      <section id="ramas" class="seccion" data-actividades="mision2 vr4">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">4</span>Ramas</h2>
+
+        <h3>¿Para qué sirve una rama?</h3>
+        <p>Imagina que tu portafolio ya funciona y quieres agregarle una sección nueva. Si experimentas directamente sobre la versión que funciona y algo sale mal, la rompes. Las ramas resuelven eso: te permiten abrir una línea de trabajo paralela, experimentar en ella y, cuando todo esté listo, integrarla a la principal. En equipo, cada persona puede trabajar en su propia rama sin estorbar a los demás.</p>
+
+        <h3>¿Qué es una rama en Git?</h3>
+        <p>Recuerda que tu historial es una serie de fotografías. Una rama es simplemente una etiqueta que apunta a la fotografía más reciente de una línea de trabajo, y que avanza sola cada vez que haces un nuevo <em>commit</em> (Chacon y Straub, 2014). La rama principal suele llamarse <code>main</code>. Git sabe en qué rama estás gracias a un indicador especial llamado <code>HEAD</code>.</p>
+
+        <figure class="ilustracion ancho" aria-label="Diagrama: la rama contacto se separa de main, avanza con un commit propio y se vuelve a unir a main con un commit de fusión">
+          <svg viewBox="0 0 640 170" aria-hidden="true">
+            <path d="M30 110 H610" class="m-main"/>
+            <path d="M230 110 C 260 110, 265 50, 300 50 H 400 C 435 50, 440 110, 470 110" class="m-rama"/>
+            <circle cx="70" cy="110" r="10" class="m-parada"/>
+            <circle cx="150" cy="110" r="10" class="m-parada"/>
+            <circle cx="230" cy="110" r="10" class="m-parada"/>
+            <circle cx="350" cy="50" r="10" class="m-parada rama"/>
+            <circle cx="350" cy="110" r="10" class="m-parada"/>
+            <circle cx="470" cy="110" r="12" class="m-parada fusion"/>
+            <rect x="500" y="128" width="62" height="24" rx="12" class="g-etiqueta main"/><text x="531" y="145" class="g-etiqueta-texto">main</text>
+            <rect x="315" y="12" width="78" height="24" rx="12" class="g-etiqueta rama"/><text x="354" y="29" class="g-etiqueta-texto">contacto</text>
+            <text x="350" y="148" class="g-nota">commit en main</text>
+            <text x="470" y="80" class="g-nota">fusión</text>
+            <text x="230" y="148" class="g-nota">se separa</text>
+          </svg>
+        </figure>
+
+        <div class="tabla-envoltura">
+          <table class="comandos">
+            <thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git branch</code></td><td>Lista las ramas y marca con <code>*</code> la rama donde estás.</td></tr>
+              <tr><td><code>git branch &lt;nombre&gt;</code></td><td>Crea una rama nueva, pero no te cambia a ella.</td></tr>
+              <tr><td><code>git switch &lt;nombre&gt;</code></td><td>Te cambia a otra rama. Tus archivos se actualizan para reflejar esa rama.</td></tr>
+              <tr><td><code>git switch -c &lt;nombre&gt;</code></td><td>Crea una rama y te cambia a ella en un solo paso.</td></tr>
+              <tr><td><code>git merge &lt;nombre&gt;</code></td><td>Integra los cambios de la rama indicada en la rama donde estás.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Fusionar</h3>
+        <p>Cuando terminas el trabajo en una rama, regresas a <code>main</code> y ejecutas <code>git merge</code> para traer esos cambios. Si en <code>main</code> también hubo <em>commits</em> nuevos mientras trabajabas, Git crea una confirmación especial de fusión que une ambas líneas (Chacon y Straub, 2014). Si dos ramas modificaron la misma línea de un archivo, Git te pedirá que decidas cuál conservar. Eso se llama <strong>conflicto</strong> y será tu siguiente paso después de esta experiencia.</p>
+
+        <aside class="recuadro">
+          <p class="recuadro-titulo">Nota</p>
+          <p>Si consultas <em>Pro Git</em> u otros materiales, verás <code>git checkout</code> en lugar de <code>git switch</code> y <code>master</code> en lugar de <code>main</code>. <code>git switch</code> se agregó en versiones más recientes de Git para que cambiar de rama sea más claro, y muchas plataformas usan hoy <code>main</code> como nombre predeterminado. El simulador acepta ambas formas.</p>
+        </aside>
+
+        <div class="actividad ancho mision" data-actividad="mision2">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Misión 2: Una sección nueva sin riesgos</p>
+          <p class="escenario">Tu portafolio funciona y quieres agregar una página de contacto sin arriesgar la versión que ya tienes. Partes del repositorio que construiste en la Misión 1.</p>
+          <div class="simulador" data-mision="2"><noscript><p>Para usar el simulador necesitas activar JavaScript en tu navegador.</p></noscript></div>
+        </div>
+
+        <div class="actividad quiz" data-actividad="vr4">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Verificación rápida</p>
+          <fieldset class="pregunta" data-id="vr4-1" data-correcta="b">
+            <legend>Cuando te cambias de rama con <code>git switch</code>, los archivos de tu directorio de trabajo…</legend>
+            <button class="opcion" data-op="a">Se quedan igual</button>
+            <button class="opcion" data-op="b">Se actualizan para reflejar el estado de esa rama</button>
+            <button class="opcion" data-op="c">Se borran todos</button>
+            <p class="explicacion" hidden>Por eso <code>contacto.html</code> desapareció al regresar a <code>main</code> en la misión: ese archivo solo existía en la otra rama.</p>
+          </fieldset>
+          <fieldset class="pregunta" data-id="vr4-2" data-correcta="b">
+            <legend>Quieres traer los cambios de la rama <code>contacto</code> a <code>main</code>. ¿Qué haces?</legend>
+            <button class="opcion" data-op="a">Desde <code>contacto</code>, ejecutas <code>git merge main</code></button>
+            <button class="opcion" data-op="b">Te cambias a <code>main</code> y ejecutas <code>git merge contacto</code></button>
+            <button class="opcion" data-op="c">Ejecutas <code>git commit contacto</code></button>
+            <p class="explicacion" hidden><code>git merge</code> trae los cambios hacia la rama donde estás. Primero te cambias a <code>main</code>.</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 5. REMOTO ============ -->
+      <section id="remoto" class="seccion" data-actividades="tf">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">5</span>Un vistazo al trabajo remoto</h2>
+        <p>Hasta ahora todo ha ocurrido en tu computadora. Pero el verdadero poder de Git aparece cuando conectas tu repositorio con una copia en un servidor, llamada <strong>repositorio remoto</strong>. Esa copia sirve como respaldo, permite compartir tu proyecto y hace posible que varias personas trabajen sobre el mismo historial (Chacon y Straub, 2014).</p>
+        <p>Piensa en el álbum de fotos de la Sección 2, pero ahora compartido en la nube. Cada integrante del equipo tiene su propio álbum completo en su computadora. Cuando alguien agrega fotos nuevas, las sube al álbum compartido, y los demás las descargan para mantener el suyo al día.</p>
+
+        <figure class="ilustracion ancho" aria-label="Diagrama: dos computadoras con su propio repositorio conectadas a un repositorio remoto en la nube; git push envía cambios a la nube y git pull los trae">
+          <svg viewBox="0 0 640 230" aria-hidden="true">
+            <path d="M250 70 a40 40 0 0 1 70 -30 a50 50 0 0 1 90 15 a35 35 0 0 1 10 70 h-170 a35 35 0 0 1 0 -55z" class="n-nube"/>
+            <text x="335" y="102" class="n-texto">Repositorio remoto</text>
+            <rect x="40" y="140" width="150" height="70" rx="8" class="n-compu"/>
+            <text x="115" y="172" class="n-texto">Tu computadora</text>
+            <text x="115" y="192" class="n-sub">repositorio local</text>
+            <rect x="450" y="140" width="150" height="70" rx="8" class="n-compu"/>
+            <text x="525" y="172" class="n-texto">Tu compañera</text>
+            <text x="525" y="192" class="n-sub">repositorio local</text>
+            <path d="M175 140 L 255 115" class="n-push"/><path d="M247 108 l10 6 -6 10" class="n-push"/>
+            <path d="M270 128 L 195 155" class="n-pull"/><path d="M200 162 l-7 -8 9 -5" class="n-pull"/>
+            <path d="M465 140 L 395 128" class="n-push"/><path d="M405 121 l-10 7 9 8" class="n-push"/>
+            <path d="M410 113 L 485 138" class="n-pull"/><path d="M480 146 l7 -8 -9 -4" class="n-pull"/>
+            <text x="190" y="112" class="n-etiqueta push">push</text>
+            <text x="215" y="162" class="n-etiqueta pull">pull</text>
+            <text x="440" y="114" class="n-etiqueta pull">pull</text>
+            <text x="418" y="150" class="n-etiqueta push">push</text>
+          </svg>
+        </figure>
+
+        <p>Plataformas como <strong>GitHub</strong> alojan repositorios remotos y agregan herramientas para colaborar, como revisar cambios o dar seguimiento a tareas (Platzi, 2019). Ojo: Git y GitHub no son lo mismo. Git es la herramienta de control de versiones; GitHub es un servicio en línea que aloja repositorios de Git.</p>
+
+        <div class="tabla-envoltura">
+          <table class="comandos">
+            <thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git clone &lt;url&gt;</code></td><td>Descarga una copia completa de un repositorio remoto, con todo su historial.</td></tr>
+              <tr><td><code>git remote add origin &lt;url&gt;</code></td><td>Conecta tu repositorio local con un repositorio remoto. <code>origin</code> es el nombre que se le da por convención.</td></tr>
+              <tr><td><code>git push</code></td><td>Envía tus <em>commits</em> locales al repositorio remoto.</td></tr>
+              <tr><td><code>git pull</code></td><td>Trae los <em>commits</em> nuevos del repositorio remoto y los integra en tu rama.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="actividad quiz vf" data-actividad="tf">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Verificación rápida: verdadero o falso</p>
+          <fieldset class="pregunta" data-id="tf-1" data-correcta="v">
+            <legend><code>git push</code> envía tus <em>commits</em> locales al repositorio remoto.</legend>
+            <button class="opcion" data-op="v">Verdadero</button>
+            <button class="opcion" data-op="f">Falso</button>
+            <p class="explicacion" hidden><code>push</code> empuja tus cambios hacia el servidor.</p>
+          </fieldset>
+          <fieldset class="pregunta" data-id="tf-2" data-correcta="f">
+            <legend>Git y GitHub son lo mismo.</legend>
+            <button class="opcion" data-op="v">Verdadero</button>
+            <button class="opcion" data-op="f">Falso</button>
+            <p class="explicacion" hidden>Git es la herramienta; GitHub es una plataforma que aloja repositorios de Git. Existen otras, como GitLab o Bitbucket.</p>
+          </fieldset>
+          <fieldset class="pregunta" data-id="tf-3" data-correcta="f">
+            <legend><code>git clone</code> descarga solo la última versión del proyecto.</legend>
+            <button class="opcion" data-op="v">Verdadero</button>
+            <button class="opcion" data-op="f">Falso</button>
+            <p class="explicacion" hidden>Descarga el historial completo. Por eso cada copia de un repositorio Git es también un respaldo.</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 6. RETO FINAL ============ -->
+      <section id="reto" class="seccion" data-actividades="reto">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">6</span>Reto final</h2>
+        <p>Llegó el momento de poner todo junto. Responde estas 10 situaciones de un proyecto en equipo. Al elegir cada respuesta verás si acertaste y por qué. Para completar la experiencia necesitas al menos <strong>8 aciertos</strong>.</p>
+
+        <div class="actividad quiz reto" data-actividad="reto">
+          <p class="actividad-tipo"><span class="rayo" aria-hidden="true">⚡</span> Reto final <span class="reto-contador" aria-live="polite"><span id="reto-respondidas">0</span> de 10 respondidas</span></p>
+
+          <fieldset class="pregunta" data-id="r1" data-correcta="a" data-seccion="Sección 2. El modelo mental">
+            <legend><span class="n">1</span>Llevas dos horas trabajando en <code>app.js</code> y guardaste todo en tu editor. Ejecutas <code>git status</code> y el archivo aparece como modificado. ¿Dónde está tu cambio?</legend>
+            <button class="opcion" data-op="a">En el directorio de trabajo</button>
+            <button class="opcion" data-op="b">En el área de preparación</button>
+            <button class="opcion" data-op="c">En el repositorio</button>
+            <p class="explicacion" hidden>Guardar en el editor no es guardar en Git. Hasta que no ejecutes <code>git add</code> y <code>git commit</code>, el cambio solo existe en tu directorio de trabajo.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r2" data-correcta="b" data-seccion="Sección 3. El ciclo básico">
+            <legend><span class="n">2</span>Quieres guardar en una sola fotografía los cambios de <code>login.html</code> y <code>login.css</code>, pero <strong>no</strong> los de <code>notas.txt</code>. ¿Qué haces?</legend>
+            <button class="opcion" data-op="a"><code>git add .</code> y después <code>git commit -m "Agrega login"</code></button>
+            <button class="opcion" data-op="b"><code>git add login.html login.css</code> y después <code>git commit -m "Agrega login"</code></button>
+            <button class="opcion" data-op="c"><code>git commit -m "Agrega login"</code> directamente</button>
+            <p class="explicacion" hidden><code>git add .</code> prepararía también <code>notas.txt</code>, y un <code>commit</code> sin preparar no guarda nada. Preparar solo los archivos que eliges es justo para lo que existe el área de preparación.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r3" data-correcta="b" data-seccion="Sección 2. El modelo mental">
+            <legend><span class="n">3</span>Ejecutas <code>git commit -m "Agrega formulario"</code> y Git responde que no hay nada que confirmar, aunque sí editaste el archivo. ¿Qué faltó?</legend>
+            <button class="opcion" data-op="a">Inicializar el repositorio otra vez</button>
+            <button class="opcion" data-op="b">Preparar el cambio con <code>git add</code></button>
+            <button class="opcion" data-op="c">Escribir un mensaje más largo</button>
+            <p class="explicacion" hidden><code>git commit</code> solo fotografía lo que está en el área de preparación. Si no preparaste nada, no hay nada que confirmar.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r4" data-correcta="b" data-seccion="Sección 3. El ciclo básico">
+            <legend><span class="n">4</span>Clonaste el proyecto de tu equipo y quieres saber quién hizo los últimos cambios y cuándo. ¿Qué comando usas?</legend>
+            <button class="opcion" data-op="a"><code>git status</code></button>
+            <button class="opcion" data-op="b"><code>git log</code></button>
+            <button class="opcion" data-op="c"><code>git branch</code></button>
+            <p class="explicacion" hidden><code>git log</code> muestra el historial con autor, fecha y mensaje de cada <em>commit</em>. <code>git status</code> solo muestra el estado actual de tus archivos.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r5" data-correcta="b" data-seccion="Sección 4. Ramas">
+            <legend><span class="n">5</span>Tu equipo te pide probar un nuevo diseño del menú sin afectar la versión que funciona en <code>main</code>. ¿Cuál es el mejor primer paso?</legend>
+            <button class="opcion" data-op="a">Editar el menú directamente en <code>main</code> y, si sale mal, borrarlo</button>
+            <button class="opcion" data-op="b"><code>git switch -c nuevo-menu</code></button>
+            <button class="opcion" data-op="c">Copiar la carpeta del proyecto y trabajar en la copia</button>
+            <p class="explicacion" hidden>Una rama te da una línea de trabajo aislada. Si el experimento no funciona, <code>main</code> sigue intacta. Copiar la carpeta es volver al problema de la Sección 1.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r6" data-correcta="b" data-seccion="Sección 4. Ramas">
+            <legend><span class="n">6</span>Terminaste el diseño en la rama <code>nuevo-menu</code> y ya hiciste <em>commit</em>. ¿Cómo lo integras a la versión principal?</legend>
+            <button class="opcion" data-op="a"><code>git merge main</code> desde <code>nuevo-menu</code></button>
+            <button class="opcion" data-op="b"><code>git switch main</code> y después <code>git merge nuevo-menu</code></button>
+            <button class="opcion" data-op="c"><code>git push nuevo-menu main</code></button>
+            <p class="explicacion" hidden><code>merge</code> trae los cambios hacia la rama donde estás. Primero te cambias a <code>main</code> y desde ahí fusionas <code>nuevo-menu</code>.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r7" data-correcta="b" data-seccion="Sección 4. Ramas">
+            <legend><span class="n">7</span>Estás en <code>main</code> y no encuentras el archivo <code>menu.css</code> que creaste y confirmaste ayer. ¿Cuál es la explicación más probable?</legend>
+            <button class="opcion" data-op="a">Git lo borró por error</button>
+            <button class="opcion" data-op="b">Lo confirmaste en otra rama que todavía no has fusionado con <code>main</code></button>
+            <button class="opcion" data-op="c">Olvidaste ejecutar <code>git log</code></button>
+            <p class="explicacion" hidden>Cada rama tiene su propia versión de los archivos. Al cambiar de rama, tu directorio de trabajo se actualiza. El archivo sigue a salvo en la otra rama.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r8" data-correcta="b" data-seccion="Sección 2. El modelo mental">
+            <legend><span class="n">8</span>Ejecutaste <code>git add estilos.css</code>, luego cambiaste el color de fondo en ese mismo archivo y después ejecutaste <code>git commit -m "Ajusta estilos"</code>. ¿Qué quedó guardado?</legend>
+            <button class="opcion" data-op="a">Todos los cambios, incluido el color de fondo</button>
+            <button class="opcion" data-op="b">La versión de <code>estilos.css</code> del momento en que hiciste <code>git add</code>; el cambio de color sigue como modificado</button>
+            <button class="opcion" data-op="c">Nada, porque el archivo cambió después de prepararlo</button>
+            <p class="explicacion" hidden>El área de preparación guarda el archivo tal como estaba al ejecutar <code>git add</code>. Para incluir el cambio de color tendrías que volver a prepararlo.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r9" data-correcta="b" data-seccion="Sección 5. Trabajo remoto">
+            <legend><span class="n">9</span>Tu compañera subió cambios al repositorio remoto esta mañana. ¿Cómo los traes a tu copia local?</legend>
+            <button class="opcion" data-op="a"><code>git push</code></button>
+            <button class="opcion" data-op="b"><code>git pull</code></button>
+            <button class="opcion" data-op="c"><code>git clone</code> otra vez</button>
+            <p class="explicacion" hidden><code>pull</code> trae los cambios del remoto y los integra en tu rama. <code>push</code> hace lo contrario, y volver a clonar es innecesario.</p>
+          </fieldset>
+
+          <fieldset class="pregunta" data-id="r10" data-correcta="c" data-seccion="Sección 3. El ciclo básico">
+            <legend><span class="n">10</span>Corregiste un error por el que el total de una compra sumaba dos veces los impuestos. ¿Cuál es el mejor mensaje de <em>commit</em>?</legend>
+            <button class="opcion" data-op="a">"arreglos"</button>
+            <button class="opcion" data-op="b">"ya funciona el total ahora sí"</button>
+            <button class="opcion" data-op="c">"Corrige doble cálculo de impuestos en el total"</button>
+            <p class="explicacion" hidden>Un buen mensaje describe el cambio con un verbo y permite entenderlo sin abrir el código.</p>
+          </fieldset>
+
+          <div class="reto-resultado" aria-live="polite" hidden>
+            <p class="reto-puntaje"></p>
+            <p class="reto-mensaje"></p>
+            <ul class="reto-repaso"></ul>
+            <button class="boton" id="reto-reintentar" hidden>Intentar de nuevo</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECCIÓN 7. CIERRE ============ -->
+      <section id="cierre" class="seccion" data-actividades="">
+        <h2 class="titulo-seccion"><span class="num" aria-hidden="true">7</span>Cierre</h2>
+
+        <figure class="ilustracion ancho" aria-label="Resumen visual: las tres áreas de Git y, debajo, una rama que se separa de main y se vuelve a unir">
+          <svg viewBox="0 0 640 200" aria-hidden="true">
+            <rect x="20" y="20" width="170" height="56" rx="10" class="r-area"/><text x="105" y="54" class="s-texto">Directorio de trabajo</text>
+            <rect x="235" y="20" width="170" height="56" rx="10" class="r-area"/><text x="320" y="54" class="s-texto">Área de preparación</text>
+            <rect x="450" y="20" width="170" height="56" rx="10" class="r-area"/><text x="535" y="54" class="s-texto">Repositorio</text>
+            <path d="M192 48 h38 M222 41 l8 7 -8 7" class="flecha"/>
+            <path d="M407 48 h38 M437 41 l8 7 -8 7" class="flecha"/>
+            <text x="212" y="96" class="s-cmd">add</text><text x="427" y="96" class="s-cmd">commit</text>
+            <path d="M40 160 H600" class="m-main"/>
+            <path d="M200 160 C 225 160, 230 125, 260 125 H 360 C 390 125, 395 160, 420 160" class="m-rama"/>
+            <circle cx="80" cy="160" r="9" class="m-parada"/><circle cx="140" cy="160" r="9" class="m-parada"/><circle cx="200" cy="160" r="9" class="m-parada"/>
+            <circle cx="310" cy="125" r="9" class="m-parada rama"/><circle cx="310" cy="160" r="9" class="m-parada"/>
+            <circle cx="420" cy="160" r="11" class="m-parada fusion"/><circle cx="500" cy="160" r="9" class="m-parada"/>
+            <text x="560" y="186" class="g-nota">main</text><text x="310" y="113" class="g-nota">rama</text>
+          </svg>
+        </figure>
+
+        <p>En esta experiencia aprendiste cuatro ideas que te acompañarán en toda tu carrera:</p>
+        <ol class="ideas">
+          <li>Git guarda <strong>fotografías</strong> de tu proyecto, no copias sueltas de archivos.</li>
+          <li>Cada cambio pasa por <strong>tres áreas</strong>: lo editas en el directorio de trabajo, lo preparas y lo confirmas en el repositorio.</li>
+          <li>Las <strong>ramas</strong> te permiten experimentar y colaborar sin poner en riesgo lo que ya funciona.</li>
+          <li>Un <strong>repositorio remoto</strong> convierte tu historial en algo compartido y respaldado.</li>
+        </ol>
+
+        <div class="guia" id="guia">
+          <div class="guia-encabezado">
+            <h3>Guía rápida de comandos</h3>
+            <button class="boton chico secundario" id="imprimir-guia">Imprimir guía</button>
+          </div>
+          <div class="tabla-envoltura">
+            <table class="comandos">
+              <thead><tr><th scope="col">Para…</th><th scope="col">Usa…</th></tr></thead>
+              <tbody>
+                <tr><td>Crear un repositorio</td><td><code>git init</code></td></tr>
+                <tr><td>Ver el estado de tus archivos</td><td><code>git status</code></td></tr>
+                <tr><td>Preparar cambios</td><td><code>git add &lt;archivo&gt;</code> o <code>git add .</code></td></tr>
+                <tr><td>Guardar una fotografía</td><td><code>git commit -m "mensaje"</code></td></tr>
+                <tr><td>Ver el historial</td><td><code>git log --oneline</code></td></tr>
+                <tr><td>Crear una rama y cambiarte a ella</td><td><code>git switch -c &lt;nombre&gt;</code></td></tr>
+                <tr><td>Cambiar de rama</td><td><code>git switch &lt;nombre&gt;</code></td></tr>
+                <tr><td>Fusionar una rama en la actual</td><td><code>git merge &lt;nombre&gt;</code></td></tr>
+                <tr><td>Copiar un repositorio remoto</td><td><code>git clone &lt;url&gt;</code></td></tr>
+                <tr><td>Enviar y traer cambios</td><td><code>git push</code> / <code>git pull</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="guia-pie">Tu código tiene memoria. Introducción al control de versiones con Git.</p>
+        </div>
+
+        <aside class="reflexion">
+          <p class="recuadro-titulo">Reflexión</p>
+          <p>Piensa en un proyecto tuyo, de la escuela o personal. ¿Cómo lo organizarías con Git? ¿Qué ramas crearías y qué mensaje le pondrías a tu primer <em>commit</em>?</p>
+        </aside>
+
+        <h3>Para seguir aprendiendo</h3>
+        <ul>
+          <li>Instala Git en tu computadora y repite las dos misiones con un proyecto real.</li>
+          <li>Crea una cuenta en GitHub y sube tu primer repositorio con <code>git push</code>.</li>
+          <li>Tu siguiente tema: <strong>conflictos de fusión</strong>, es decir, qué hacer cuando dos ramas cambian la misma línea.</li>
+          <li>Consulta <a href="https://git-scm.com/book/es/v2" target="_blank" rel="noopener"><em>Pro Git</em> en español</a>, gratuito en línea: capítulos 1 a 3 (Chacon y Straub, 2014).</li>
+        </ul>
+
+        <p class="mensaje-final">A partir de hoy, tu código tiene memoria. Úsala.</p>
+      </section>
+
+      <!-- ============ SECCIÓN 8. REFERENCIAS ============ -->
+      <section id="referencias" class="seccion" data-actividades="">
+        <h2 class="titulo-seccion">Referencias</h2>
+
+        <h3>Sobre esta experiencia</h3>
+        <p>La secuencia de esta experiencia prioriza la comprensión del modelo de Git antes que la memorización de comandos, y deja las situaciones de aplicación más exigentes para el final (Wagner y Thurner, 2025). Sus actividades interactivas, con retroalimentación inmediata, se diseñaron para favorecer el compromiso y el aprendizaje activo (González-Ramírez y García-Hernández, 2024; Ramos-Azcuy et al., 2025).</p>
+        <p class="creditos"><em>Diseño y desarrollo:</em> Luis Ángel Ortega Holguín, 2026. <em>Ilustraciones:</em> elaboración propia.</p>
+
+        <h3>Referencias</h3>
+        <ul class="lista-referencias">
+          <li>Chacon, S. y Straub, B. (2014). <em>Pro Git</em> (2.ª ed.). Apress. <a href="https://git-scm.com/book/es/v2" target="_blank" rel="noopener">https://git-scm.com/book/es/v2</a></li>
+          <li>González-Ramírez, T. y García-Hernández, A. (2024). Diseño de un libro interactivo para aprender con engagement. <em>Revista Electrónica de Investigación Educativa, 26</em>, Artículo e19. <a href="https://doi.org/10.24320/redie.2024.26.e19.5530" target="_blank" rel="noopener">https://doi.org/10.24320/redie.2024.26.e19.5530</a></li>
+          <li>Platzi. (2019, 20 de mayo). <em>¿Qué es Git y GitHub? - Repositorios, ramas y mucho más</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=DinilgacaWs" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DinilgacaWs</a></li>
+          <li>Ramos-Azcuy, F. J., Rodríguez-Gámez, M., Benavides-Bailón, J. M., Bonilla-Jiménez, M. M. y Arroba-Cárdenas, Á. E. (2025). Despertando el compromiso estudiantil: el poder transformador de H5P en la educación superior. <em>RIED-Revista Iberoamericana de Educación a Distancia, 28</em>(2), 379–400. <a href="https://doi.org/10.5944/ried.28.2.43542" target="_blank" rel="noopener">https://doi.org/10.5944/ried.28.2.43542</a></li>
+          <li>Wagner, G. y Thurner, L. (2025). Teaching tip: Rethinking how we teach Git: Pedagogical recommendations and practical strategies for the information systems curriculum. <em>Journal of Information Systems Education, 36</em>(1), 1–12. <a href="https://doi.org/10.62273/BTKM5634" target="_blank" rel="noopener">https://doi.org/10.62273/BTKM5634</a></li>
+        </ul>
+
+        <p class="pie"><button class="enlace-boton" id="reiniciar-todo">Borrar mi progreso y empezar de nuevo</button></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/simulador.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
